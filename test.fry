@@ -1,0 +1,9 @@
+func increment(x : Int) [x > 50] -> Int {
+    return x + 1;
+}
+
+io func main() -> Int {
+    increment(90);
+
+    return 0;
+}
