@@ -53,24 +53,24 @@ HasIO (CodeGen s e) where
     liftIO = MkCodeGen . liftIO
 
 public export 
-interface (HasIO g, MonadReader CodeGenState g) => HasCodeGen g where 
-    generate : String -> g ()
+interface Backend (0 s : String) (0 e : Type) | s where 
+    generate : String -> CodeGen s e ()
 
-    withIndent : g a -> g a
+    withIndent : CodeGen s e a -> CodeGen s e a
     withIndent = local (\s => { indent := S s.indent} s)
 
-    generateIndent : g () 
+    generateIndent : CodeGen s e () 
     generateIndent = do 
         spaces <- asks indent 
         generate (replicate spaces ' ')
 
-    generateLine : g a -> g () 
+    generateLine : CodeGen s e a -> CodeGen s e () 
     generateLine line = generateIndent *> line *> generate "\n"
 
-    pregen : g ()
+    pregen : CodeGen s e ()
     pregen = pure ()
 
-    postgen : g ()
+    postgen : CodeGen s e ()
     postgen = pure ()
 
 export 

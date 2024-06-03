@@ -7,7 +7,7 @@ PyGen : Type -> Type
 PyGen = CodeGen "python" FileError
 
 export
-HasCodeGen PyGen where 
+Backend "python" FileError where 
     generate = defaultGenerate
     postgen  = generateLine (generate "main()")
 

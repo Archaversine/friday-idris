@@ -7,7 +7,7 @@ CGen : Type -> Type
 CGen = CodeGen "c" FileError
 
 export
-HasCodeGen CGen where 
+Backend "c" FileError where 
     generate = defaultGenerate
     pregen   = generateLine (generate "#include <stdio.h>\n")
 
